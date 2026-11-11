@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal</title>
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Ruta archivo CSS externo -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div>
+            <img id="logo" src="img/logo.jpg" alt="logo">
+        </div>
+        <nav>
+            <ul>
+                <li class="lista-enlace">
+                    <a href="index.html">Principal</a>
+                </li>
+                <li class="lista-enlace">
+                    <a href="get.html">Obtener</a>
+                </li>
+                <li class="lista-enlace">
+                    <a href="post.html">Crear</a>
+                </li>
+                <li class="lista-enlace">
+                    <a href="put.html">Modificar</a>
+                </li>
+                <li class="lista-enlace">
+                    <a href="delete.html">Eliminar</a>
+                </li>
+                <li class="lista-enlace">
+                    <a href="carrito.html"><img id="logo-carrito"src="img/carrito.png" alt="Carrito"></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main style="margin:50px">
+        <h3 class="titulo-pagina">Nuestros productos</h3>
+                <select name="category" id="categoryProd" required>
+                    <option value="all">Todo</option>
+                    <option value="zapatillas">Zapatillas</option>
+                    <option value="medias">Medias</option>
+                </select>
+        <section id="contenedor-productos"></section>
+    </main>
+    
+    
+    <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
+        const urlBase = "http://localhost:3000";
+        
+        // Optimizacion 1: Mostramos el mensaje de error visualmente
+        function mostrarError(message) {
+            contenedorProductos.innerHTML = `        
+                <p class="mensaje error">${message}</p>
+            `;
+        }
+        
+        async function obtenerProductos() {
+            try {
+                const response = await fetch(`${urlBase}/api/products`);
+                console.log(response); // Response {type: 'cors', url: 'http://localhost:3000/api/products', redirected: false, status: 200, ok: true, …}
+
+                const data = await response.json();
+
+                // Optimizacion 2: Filtramos errores 400 o 500
+                if (!response.ok) {
+                    return mostrarError(data.message);
+                    // el return hace que esta funcion termine
+                }
+                
+                // En data tenemos payload: arrayDeObjetos
+                const productos = data.payload;
+                console.table(productos);
+                
+                renderizarProductos(productos);
+                
+            } catch (error) {
+                // El catch solo captura errores reales de red (no hay conexion o el server esta caido)
+                console.error("Error al hacer la solicitud: ", error);
+                mostrarError("Fallo la conexion con el servidor");
+            }
+        }
+
+
+        function renderizarProductos(array) {
+            let htmlProducto = "";
+            
+            array.forEach(prod => {
+                htmlProducto += `
+                <div class="card-producto">
+                    <img class="card-img" src="${prod.image}" alt="${prod.name}">
+                    <h4>${prod.name}</h4>
+                    <p>${prod.tipo}<p>
+                    <p>Id: ${prod.id}</p>
+                    <p>Talles: ${prod.talle}<p>
+                    <p>$ ${prod.price}</p>
+                    <button type="button" id="agregar-producto">Añadir al carrito</button>
+                </div>
+                    `;
+                });
+                
+                contenedorProductos.innerHTML = htmlProducto;
+            }
+            
+            // obtenerProductos();   // lo reactivo cuando tenga la DB
+
+            // ARRAY TEMPORAL (borrar cuando haya DB)
+            const productosPrueba = [
+                { id: 1, name: "Jordan Retro 4", price: 89999,tipo:"Urbana",talle:"40-41-44",image: "https://acdn-us.mitiendanube.com/stores/001/987/365/products/ca844506-bd26-410b-88ad-f87a8afde1d1-1247cb22bd112d406217815598358490-1024-1024.webp" },
+                { id: 2, name: "Vans Knu Skool", price: 74999,tipo:"Urbana" ,talle:"38-44",image: "https://chelseaio.vtexassets.com/arquivos/ids/694991-800-auto?v=639295850947630000&width=800&height=auto&aspect=true" },
+                { id: 3, name: "Medias Adidas", price: 109999,tipo:"Medias deportivas",talle:"39-40-42-43", image: "https://production.cdn.vaypol.com/variants/llhbqu256lkvfyx0clftu54cq4k5/b705b1e3c6fbc9dd90919abc47ece3cfcd5d3ee0634923198c4a45ce52e2fb40" },
+                { id: 4, name: "Adidas Runblaze", price: 8999,tipo:"Running",talle:"40-41-44",image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0kz0OentUG3c_wB9RQT070FJGAo5uuBaJHUVfdUgypAvguBrswIBeavg&s=10" },
+                { id: 5, name: "Footy Pop Cars", price: 5999,tipo:"Niños",talle:"22-23", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEhFITFS0oCvYGgVRLygCvO6C7p9V9rZpLCLkqc9f2W7OxboCcPyzIVcrb&s=10" },
+                { id: 6, name: "Medias soquetes", price: 12999,tipo:"soquetes",talle:"40-41-44", image: "https://acdn-us.mitiendanube.com/stores/628/011/products/blanco-104-41620eb677235b6a3617392005211892-640-0.webp" }
+            ];
+
+            renderizarProductos(productosPrueba);
+    </script>
+</body>
+</html>

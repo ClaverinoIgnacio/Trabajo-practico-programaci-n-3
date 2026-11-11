@@ -1,0 +1,210 @@
+/*=================
+    Generales
+=================*/
+:root {
+    --rojo-secundario: #e4273a;
+    --gris-claro:#e7e6e6fa;
+
+    --error-color: #58151c;
+    --error-fondo:#f8d7da;
+    --error-borde: #f1aeb5;
+
+    --exito-color: #0a3622;
+    --exito-fondo: #d1e7dd;
+    --exito-borde: #a3cfbb;
+}
+
+h3{
+    font-family: "Barlow Semi Condensed", Arial, sans-serif;
+    text-align: center;
+}
+ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.mensaje {
+    margin: 0 auto;
+    padding: 20px 60px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.error {
+    color: var(--error-color);
+    background-color: var(--error-fondo);
+    border: 2px solid var(--error-borde);
+}
+
+.exito {
+    color: var(--exito-color);
+    background-color: var(--exito-fondo);
+    border: 2px solid var(--exito-borde);
+}
+
+
+/*=================
+    Header
+=================*/
+header {
+    display:flex;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: #000000;
+}
+
+header, header ul {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+header ul {
+    justify-content: space-around;
+    text-decoration:none ;
+}
+
+header ul, img {
+    margin-bottom: 0;
+}
+header li{
+    text-decoration: none;
+    color:#a3cfbb;
+
+}
+
+
+#logo {
+    border-radius: 50%;
+    width: 75px;
+}
+#logo-carrito {
+    width: 75px;
+}
+
+header nav {
+    width: 100%;
+}
+header nav a{
+    display: inline-block;
+    font-family: "Barlow Semi Condensed", Arial, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color:#d1e7dd;
+    text-align: center;
+}
+header nav a:hover{
+        transform: scale(1.2); 
+}
+
+
+#contenedor-productos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.titulo-pagina {
+    margin-bottom: 30px;
+}
+
+
+/*=================
+    Tarjetas prod
+=================*/
+
+.card-producto {
+    width: 200px;
+    border: 2px solid var(--gris-claro);
+    font-family: "Barlow Semi Condensed", Arial, sans-serif;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    border-radius: 3px;
+}
+
+.card-producto h4 {
+    font-size: 14px;
+    color: var(--rojo-principal);
+}
+
+.card-producto p {
+    font-size: 12px;
+}
+
+.card-producto h4, .card-producto p {
+    margin: 0;
+}
+
+.card-img {
+    width: 110px;
+    height: 110px;
+}
+
+#agregar-producto{
+    width: 80%;
+    height:40px;
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+    border:1px solid var(--gris-claro);
+    border-radius: 15px;
+    margin-bottom: 10px;
+
+}
+
+
+
+/*=================
+    Listas prod
+=================*/
+.listados-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.li-listados {
+    margin-bottom: 0;
+}
+
+.img-listados {
+    width: 80px;
+}
+
+
+/*=================
+    Formularios
+=================*/
+#createProductForm, #updateProductForm,#getProductForm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 30%;
+    margin: 0 auto 30px;
+    padding: 30px;
+    background-color:var(--rojo-secundario);
+    border: 1px solid #ececec; 
+    border-radius: 50px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); 
+}
+/*=================
+    Pestaña Crear
+=================*/
+
+#crear-producto,#boton-consultar{
+    margin-top: 20px;
+    height:50px;
+    border-radius: 50px;
+    border: 1px solid var(--exito-fondo);
+    font-size: 20px;
+    cursor:pointer;
+}
+#crear-producto,#boton-consultar:hover{
+    background-color:var(--gris-claro);
+}
